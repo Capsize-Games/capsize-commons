@@ -3,6 +3,7 @@
 | Document | Contents |
 |---|---|
 | [`ARCHITECTURE.md`](ARCHITECTURE.md) | Repository layout, module map, design rules |
+| [`ADOPTION_PLAN.md`](ADOPTION_PLAN.md) | Audit of the fleet + phased plan for adopting commons |
 | [`adr/`](adr/) | Architecture Decision Records |
 
 ## Guides
