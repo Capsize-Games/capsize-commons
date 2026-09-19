@@ -43,3 +43,13 @@ def test_clear_cache_drops_the_instance() -> None:
     first = get_settings(_Settings)
     clear_settings_cache()
     assert get_settings(_Settings) is not first
+
+
+def test_cache_is_keyed_per_class() -> None:
+    class _Other(CapsizeSettings):
+        model_config = SettingsConfigDict(
+            env_prefix="CAPSIZE_OTHER_", extra="ignore"
+        )
+
+    assert get_settings(_Settings) is not get_settings(_Other)
+    assert isinstance(get_settings(_Settings), _Settings)
