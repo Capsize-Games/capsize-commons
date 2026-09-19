@@ -37,6 +37,22 @@ def test_identifier_fields_and_nested_fields() -> None:
     assert payload["fields"] == {"attempt": 2}
 
 
+def test_message_key_can_reproduce_a_legacy_shape() -> None:
+    record = _record()
+    record.run_id = "run-1"
+    formatter = JsonFormatter(
+        message_key="event",
+        identifier_fields=("run_id", "config_id", "config_hash"),
+    )
+    payload = json.loads(formatter.format(record))
+    assert payload["event"] == "hello world"
+    assert payload["run_id"] == "run-1"
+    assert "message" not in payload
+    # Fields outside the configured set are not copied.
+    record.request_id = "req-1"
+    assert "request_id" not in json.loads(formatter.format(record))
+
+
 def test_exception_is_rendered() -> None:
     try:
         raise RuntimeError("boom")
