@@ -1,5 +1,5 @@
 {
-  "name": "@capsize/commons",
+  "name": "@capsizellc/commons",
   "version": "0.1.0",
   "description": "Selectively importable common utilities shared across Capsize projects.",
   "type": "module",
@@ -69,5 +69,14 @@
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.11.0",
     "vitest": "^2.1.3"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Capsize-Games/capsize-commons.git",
+    "directory": "typescript"
+  },
+  "homepage": "https://github.com/Capsize-Games/capsize-commons#readme"
 }

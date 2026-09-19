@@ -1,4 +1,4 @@
-# @capsize/commons (TypeScript / JavaScript)
+# @capsizellc/commons (TypeScript / JavaScript)
 
 The TypeScript distribution of [`capsize-commons`](../README.md). It is
 tree-shakeable, marked `sideEffects: false`, and exposes one subpath export per
@@ -7,25 +7,25 @@ module so a consumer imports only what it uses.
 ## Install
 
 ```bash
-pnpm add @capsize/commons
+pnpm add @capsizellc/commons
 ```
 
 ## Subpath exports
 
 | Import                     | Provides                                                      |
 | -------------------------- | ------------------------------------------------------------- |
-| `@capsize/commons/result`  | `Result<T, E>`, `ok`, `err`, `unwrap`, `mapResult`, …         |
-| `@capsize/commons/env`     | Typed environment access with a `VITE_` guard for client code |
-| `@capsize/commons/logging` | `createLogger` emitting the §14 JSON line shape               |
-| `@capsize/commons/http`    | `fetchJson<T>` with timeout and `HttpError`                   |
-| `@capsize/commons/string`  | `slugify`, `toKebabCase`, `toSnakeCase`, `toPascalCase`       |
-| `@capsize/commons/object`  | `deepMerge`, `deepFreeze`, `isPlainObject`                    |
-| `@capsize/commons`         | Everything above, re-exported                                 |
+| `@capsizellc/commons/result`  | `Result<T, E>`, `ok`, `err`, `unwrap`, `mapResult`, …         |
+| `@capsizellc/commons/env`     | Typed environment access with a `VITE_` guard for client code |
+| `@capsizellc/commons/logging` | `createLogger` emitting the §14 JSON line shape               |
+| `@capsizellc/commons/http`    | `fetchJson<T>` with timeout and `HttpError`                   |
+| `@capsizellc/commons/string`  | `slugify`, `toKebabCase`, `toSnakeCase`, `toPascalCase`       |
+| `@capsizellc/commons/object`  | `deepMerge`, `deepFreeze`, `isPlainObject`                    |
+| `@capsizellc/commons`         | Everything above, re-exported                                 |
 
 ```ts
-import { createLogger } from "@capsize/commons/logging";
-import { fetchJson } from "@capsize/commons/http";
-import { ok, unwrap } from "@capsize/commons/result";
+import { createLogger } from "@capsizellc/commons/logging";
+import { fetchJson } from "@capsizellc/commons/http";
+import { ok, unwrap } from "@capsizellc/commons/result";
 
 const log = createLogger({ name: "web", json: true });
 log.info("starting", { region: "us-west" });

@@ -28,19 +28,19 @@ header-first and links only what you use.
 
 | Need | Python | TypeScript | C++ |
 |---|---|---|---|
-| Structured JSON logging | `capsize-commons[logging]` | `@capsize/commons/logging` | `capsize/commons/logging.h` |
-| Env-backed settings | `capsize-commons[config]` | `@capsize/commons/env` | — |
+| Structured JSON logging | `capsize-commons[logging]` | `@capsizellc/commons/logging` | `capsize/commons/logging.h` |
+| Env-backed settings | `capsize-commons[config]` | `@capsizellc/commons/env` | — |
 | FastAPI auth + health | `capsize-commons[web]` | — | — |
 | SQLAlchemy engine/models | `capsize-commons[db]` | — | — |
-| HTTP retry/backoff | `capsize-commons[http]` | `@capsize/commons/http` | — |
-| Case conversion | core | `@capsize/commons/string` | `capsize/commons/string_utils.h` |
-| Result / error handling | core | `@capsize/commons/result` | `capsize/commons/expected.h` |
+| HTTP retry/backoff | `capsize-commons[http]` | `@capsizellc/commons/http` | — |
+| Case conversion | core | `@capsizellc/commons/string` | `capsize/commons/string_utils.h` |
+| Result / error handling | core | `@capsizellc/commons/result` | `capsize/commons/expected.h` |
 
 ```bash
 # Python — install only what a service uses
 uv add "capsize-commons[web,db]"      # or [all]
 # TypeScript
-pnpm add @capsize/commons
+pnpm add @capsizellc/commons
 # C++ (CMake FetchContent or find_package)
 find_package(capsize-commons CONFIG REQUIRED)
 target_link_libraries(myapp PRIVATE capsize::commons)
@@ -59,8 +59,8 @@ app.dependency_overrides = {}
 ```
 
 ```ts
-import { createLogger } from "@capsize/commons/logging";
-import { fetchJson } from "@capsize/commons/http";
+import { createLogger } from "@capsizellc/commons/logging";
+import { fetchJson } from "@capsizellc/commons/http";
 
 const log = createLogger({ name: "web", json: true });
 log.info("starting");
@@ -107,7 +107,7 @@ Coverage target: **80%** (this repo is a `library`, standards §9).
 
 ```
 python/      # the capsize-commons Python distribution (src layout)
-typescript/  # the @capsize/commons pnpm package
+typescript/  # the @capsizellc/commons pnpm package
 cpp/         # the capsize::commons CMake library
 docs/        # guides + ADRs
 scripts/     # helper scripts (rules sync)
