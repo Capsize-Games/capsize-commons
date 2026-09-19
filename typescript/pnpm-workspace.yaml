@@ -1,0 +1,6 @@
+# pnpm >= 12 reads settings from this file; the package.json "pnpm" field is
+# no longer honoured. esbuild (used by tsup and vitest) ships a native binary
+# through a build script, which pnpm blocks unless the package is allowed.
+packages: []
+allowBuilds:
+  esbuild: true

@@ -1,0 +1,30 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 24, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "dev",
+      "displayName": "Dev (Debug, tests and compile commands on)",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CAPSIZE_COMMONS_BUILD_TESTS": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "dev"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "dev",
+      "output": { "outputOnFailure": true }
+    }
+  ]
+}

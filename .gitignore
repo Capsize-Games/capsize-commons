@@ -1,0 +1,27 @@
+# Environment (never commit real config; .env.example stays tracked)
+.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+python/dist/
+python/build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node / TypeScript
+node_modules/
+typescript/dist/
+typescript/coverage/
+
+# C / C++
+cpp/build/
+compile_commands.json
+
+# Editors / OS
+.DS_Store
+*.swp

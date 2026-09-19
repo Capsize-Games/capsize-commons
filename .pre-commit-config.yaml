@@ -1,0 +1,44 @@
+# Capsize commons pre-commit configuration (CAPSIZE_PROJECT_STANDARDS.md §8).
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: mixed-line-ending
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        files: ^python/
+        args: ["--config=python/ruff.toml"]
+      - id: ruff-format
+        files: ^python/
+        args: ["--config=python/ruff.toml"]
+
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v18.1.8
+    hooks:
+      - id: clang-format
+        files: ^cpp/.*\.(cpp|h)$
+
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.10.0
+    hooks:
+      - id: shellcheck
+        files: ^scripts/
+
+  - repo: local
+    hooks:
+      - id: capsize-rules-sync
+        name: capsize-rules-sync
+        description: Regenerate derived AI instruction files and fail on drift.
+        entry: bash scripts/sync-rules.sh --check
+        language: system
+        pass_filenames: false
+        files: ^(capsize\.json|AGENTS\.md)$

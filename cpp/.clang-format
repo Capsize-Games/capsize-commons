@@ -1,0 +1,14 @@
+BasedOnStyle: LLVM
+# clang-format 19 has no `c++23` value for Standard; "Latest" formats the
+# C++23 sources and only affects formatting, not the level CMake compiles at.
+Standard: Latest
+IndentWidth: 4
+TabWidth: 4
+ColumnLimit: 80
+BreakBeforeBraces: Allman
+NamespaceIndentation: None
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+PointerAlignment: Left
+SortIncludes: CaseSensitive
+IncludeBlocks: Regroup

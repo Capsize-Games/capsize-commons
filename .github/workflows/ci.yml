@@ -1,0 +1,51 @@
+# CI for capsize-commons (CAPSIZE_PROJECT_STANDARDS.md §10).
+#
+# Per-language stages call the reusable workflows owned by capsize-ci rather
+# than copying their bodies; the rules-sync job enforces §12 drift.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    uses: Capsize-Games/capsize-ci/.github/workflows/python-ci.yml@main
+    with:
+      working-directory: python
+    secrets: inherit
+
+  typescript:
+    uses: Capsize-Games/capsize-ci/.github/workflows/node-ci.yml@main
+    with:
+      working-directory: typescript
+    secrets: inherit
+
+  cpp:
+    uses: Capsize-Games/capsize-ci/.github/workflows/cpp-ci.yml@main
+    with:
+      working-directory: cpp
+    secrets: inherit
+
+  rules-sync:
+    name: rules-sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail on drift in derived instruction files
+        run: bash scripts/sync-rules.sh --check
+
+  manifest:
+    name: validate capsize.json
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate manifest against the published schema
+        run: |
+          python -m pip install --quiet check-jsonschema
+          check-jsonschema --schemafile \
+            https://capsize.dev/schemas/capsize-1.json capsize.json

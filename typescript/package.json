@@ -1,0 +1,73 @@
+{
+  "name": "@capsize/commons",
+  "version": "0.1.0",
+  "description": "Selectively importable common utilities shared across Capsize projects.",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./result": {
+      "types": "./dist/result.d.ts",
+      "import": "./dist/result.js",
+      "require": "./dist/result.cjs"
+    },
+    "./env": {
+      "types": "./dist/env.d.ts",
+      "import": "./dist/env.js",
+      "require": "./dist/env.cjs"
+    },
+    "./logging": {
+      "types": "./dist/logging/index.d.ts",
+      "import": "./dist/logging/index.js",
+      "require": "./dist/logging/index.cjs"
+    },
+    "./http": {
+      "types": "./dist/http/index.d.ts",
+      "import": "./dist/http/index.js",
+      "require": "./dist/http/index.cjs"
+    },
+    "./string": {
+      "types": "./dist/string/index.d.ts",
+      "import": "./dist/string/index.js",
+      "require": "./dist/string/index.cjs"
+    },
+    "./object": {
+      "types": "./dist/object/index.d.ts",
+      "import": "./dist/object/index.js",
+      "require": "./dist/object/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "eslint": "^9.13.0",
+    "prettier": "^3.3.3",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.11.0",
+    "vitest": "^2.1.3"
+  }
+}

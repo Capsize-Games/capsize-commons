@@ -1,0 +1,23 @@
+line-length = 79
+target-version = "py311"
+# Documentation prose is not source; leave its fenced examples untouched.
+extend-exclude = ["*.md"]
+
+[lint]
+select = ["A", "ANN", "B", "C4", "D", "E", "F", "I", "N", "RET", "SIM", "UP", "W"]
+ignore = ["D203", "D213"]
+
+# §6 mandates a column literally named `id`; that is not an accidental
+# shadow of the builtin.
+[lint.flake8-builtins]
+ignorelist = ["id"]
+
+# FastAPI's Header()/Depends() are declarations, not mutable defaults.
+[lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Header", "fastapi.Depends", "fastapi.Query"]
+
+[lint.per-file-ignores]
+"tests/*" = ["ANN", "D100", "D101", "D102", "D103", "D104", "D401"]
+# SQLAlchemy's DBAPI surface is inherently untyped: create_engine's **kwargs
+# and the raw connection handed to an event listener are `Any`.
+"src/capsize_commons/db/engine.py" = ["ANN401"]

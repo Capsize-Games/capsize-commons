@@ -1,0 +1,46 @@
+{
+  "$schema": "https://capsize.dev/schemas/capsize-1.json",
+  "schema_version": 1,
+  "standards": "1.x",
+  "name": "capsize-commons",
+  "type": "library",
+  "languages": ["python", "typescript", "c", "cpp"],
+  "framework": null,
+  "databases": ["postgresql", "sqlite"],
+  "runtimes": { "python": "3.12", "node": "22", "cmake": "3.24" },
+  "entrypoints": {
+    "python": "python/src/capsize_commons",
+    "node": "typescript/src/index.ts",
+    "cpp": "cpp/include/capsize/commons"
+  },
+  "task_runner": "just",
+  "commands": {
+    "setup": "setup",
+    "build": "build",
+    "test": "test",
+    "lint": "lint",
+    "format": "format",
+    "typecheck": "typecheck",
+    "run": null,
+    "clean": "clean",
+    "docs": "docs",
+    "ci": "ci"
+  },
+  "dependencies": {
+    "python": "python/pyproject.toml",
+    "node": "typescript/package.json",
+    "cpp": "cpp/CMakeLists.txt"
+  },
+  "instructions": {
+    "canonical": "AGENTS.md",
+    "rules": [
+      "capsize/base",
+      "capsize/library",
+      "capsize/lang/python",
+      "capsize/lang/typescript",
+      "capsize/lang/cpp"
+    ]
+  },
+  "owner": "Capsize-Games",
+  "license": "MIT"
+}
