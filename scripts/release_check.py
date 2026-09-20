@@ -35,8 +35,7 @@ def validate_metadata(root: Path, *, version: str) -> list[str]:
         errors.append("TypeScript package name is not @capsizellc/commons")
     if ts_data["version"] != version:
         errors.append(
-            "TypeScript version is "
-            f"{ts_data['version']}, expected {version}"
+            f"TypeScript version is {ts_data['version']}, expected {version}"
         )
     python_init = root / "python/src/capsize_commons/__init__.py"
     if f'__version__ = "{version}"' not in python_init.read_text(

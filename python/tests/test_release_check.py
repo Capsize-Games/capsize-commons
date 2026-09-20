@@ -10,10 +10,7 @@ from scripts.release_check import validate_metadata  # noqa: E402
 
 
 def test_current_release_metadata_is_consistent() -> None:
-    assert (
-        validate_metadata(ROOT, version="0.1.3")
-        == []
-    )
+    assert validate_metadata(ROOT, version="0.1.3") == []
 
 
 def test_release_check_rejects_wrong_version() -> None:
