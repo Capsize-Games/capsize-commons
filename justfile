@@ -26,13 +26,14 @@ test:
 
 # Static analysis across every language.
 lint:
-    cd python && uv run ruff check .
+    python scripts/check_boundaries.py
+    cd python && uv run ruff check . ../scripts
     cd typescript && pnpm lint
     cd cpp && find include src tests -name '*.cpp' -o -name '*.h' | xargs -r clang-tidy -p build
 
 # Auto-format sources.
 format:
-    cd python && uv run ruff format .
+    cd python && uv run ruff format . ../scripts
     cd typescript && pnpm format
     cd cpp && find include src tests -name '*.cpp' -o -name '*.h' | xargs -r clang-format -i
 
@@ -55,6 +56,9 @@ docs:
     @echo "See docs/README.md and docs/ARCHITECTURE.md"
 
 ci: lint typecheck test
+
+release-check python_version="0.1.2" typescript_version="0.1.1":
+    python scripts/release_check.py --python-version "{{python_version}}" --typescript-version "{{typescript_version}}"
 
 # Regenerate every derived AI-instruction file from capsize.json (§12.6).
 sync-rules:
