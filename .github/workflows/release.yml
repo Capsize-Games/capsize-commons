@@ -8,7 +8,7 @@ on:
       version:
         description: SemVer candidate used by a dry-run
         required: true
-        default: "0.1.4"
+        default: "0.1.5"
         type: string
       dry-run:
         description: Build and verify without publishing
@@ -127,5 +127,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+          registry-url: https://registry.npmjs.org
+      - name: Install npm trusted-publishing support
+        run: npm install --global npm@11.5.1
       - name: Publish with npm provenance
         run: npm publish ./release-dist/*.tgz --provenance --access public
