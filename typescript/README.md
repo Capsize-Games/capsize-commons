@@ -12,8 +12,8 @@ pnpm add @capsizellc/commons
 
 ## Subpath exports
 
-| Import                     | Provides                                                      |
-| -------------------------- | ------------------------------------------------------------- |
+| Import                        | Provides                                                      |
+| ----------------------------- | ------------------------------------------------------------- |
 | `@capsizellc/commons/result`  | `Result<T, E>`, `ok`, `err`, `unwrap`, `mapResult`, …         |
 | `@capsizellc/commons/env`     | Typed environment access with a `VITE_` guard for client code |
 | `@capsizellc/commons/logging` | `createLogger` emitting the §14 JSON line shape               |

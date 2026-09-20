@@ -1,7 +1,9 @@
 # CI for capsize-commons (CAPSIZE_PROJECT_STANDARDS.md §10).
 #
-# Per-language stages call the reusable workflows owned by capsize-ci rather
-# than copying their bodies; the rules-sync job enforces §12 drift.
+# The repository-local jobs below are the current CI authority. The former
+# capsize-ci reusable-workflow repository no longer exists, so keeping these
+# stages explicit makes a missing external authority fail visible rather than
+# preventing GitHub from creating any jobs.
 name: ci
 
 on:
@@ -14,22 +16,72 @@ permissions:
 
 jobs:
   python:
-    uses: Capsize-Games/capsize-ci/.github/workflows/python-ci.yml@main
-    with:
-      working-directory: python
-    secrets: inherit
+    name: python / ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    defaults:
+      run:
+        working-directory: python
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: python/uv.lock
+      - run: uv sync --all-extras --dev
+      - run: uv run ruff check . ../scripts
+      - run: uv run ruff format --check . ../scripts
+      - run: uv run mypy src
+      - run: uv run pytest
 
   typescript:
-    uses: Capsize-Games/capsize-ci/.github/workflows/node-ci.yml@main
-    with:
-      working-directory: typescript
-    secrets: inherit
+    name: typescript
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: typescript
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.4.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: typescript/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm format:check
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
 
   cpp:
-    uses: Capsize-Games/capsize-ci/.github/workflows/cpp-ci.yml@main
-    with:
-      working-directory: cpp
-    secrets: inherit
+    name: cpp
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake --preset dev
+        working-directory: cpp
+      - name: Build
+        run: cmake --build --preset dev
+        working-directory: cpp
+      - name: Test
+        run: ctest --preset dev
+        working-directory: cpp
+      - name: Check formatting
+        run: |
+          find cpp/include cpp/src cpp/tests \
+            -type f \( -name '*.h' -o -name '*.cpp' \) -print0 \
+            | xargs -0 clang-format --dry-run --Werror
 
   rules-sync:
     name: rules-sync
