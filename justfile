@@ -57,8 +57,8 @@ docs:
 
 ci: lint typecheck test
 
-release-check python_version="0.1.2" typescript_version="0.1.1":
-    python scripts/release_check.py --python-version "{{python_version}}" --typescript-version "{{typescript_version}}"
+release-check version="0.1.3":
+    python scripts/release_check.py --version "{{version}}"
 
 # Regenerate every derived AI-instruction file from capsize.json (§12.6).
 sync-rules:

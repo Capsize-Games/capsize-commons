@@ -4,17 +4,14 @@ This checklist verifies a release candidate without publishing from a local
 shell. Run it from a clean checkout with the intended version arguments:
 
 ```bash
-just release-check python_version=0.1.2 typescript_version=0.1.1
+just release-check version=0.1.3
 ```
 
 The command checks package names, version authorities, and forbidden dependency
 edges. For the full pre-publish gate, run:
 
 ```bash
-python scripts/release_check.py \
-  --python-version 0.1.2 \
-  --typescript-version 0.1.1 \
-  --full
+python scripts/release_check.py --version 0.1.3 --full
 ```
 
 The full gate must record:
@@ -29,14 +26,14 @@ The full gate must record:
 5. The release tag is the only publish trigger. Pull requests and ordinary
    branch pushes must not publish.
 6. Trusted-publisher identities, package-owner permissions, and required OIDC
-   permissions are documented and tested in the release workflow. No token is
-   printed, committed, or copied into a consumer repository.
+   permissions are configured for PyPI and npm, and the tag workflow reaches
+   both publish jobs. No token is printed, committed, or copied into a
+   consumer repository.
 7. Repeating an existing tag fails safely or is idempotent without overwriting
    the published artifact.
 8. The release note records the tag, artifact links, checksums, clean-install
    commands, and rollback path.
 
-The current repository can execute the metadata and boundary portions. The
-tag-only trusted-publishing proof is intentionally not claimed until the
-shared workflow authority and package trust configuration are restored under
-`hq#23` and `hq#43`.
+The release workflow is tag-only for publishing. A manual dispatch is a
+dry-run and never publishes. The package trust configuration must be verified
+before pushing the first release tag.

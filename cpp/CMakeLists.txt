@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.24)
 
 project(
   capsize-commons
-  VERSION 0.1.0
+  VERSION 0.1.3
   DESCRIPTION "Common C/C++ building blocks shared across Capsize projects"
   LANGUAGES CXX
 )
