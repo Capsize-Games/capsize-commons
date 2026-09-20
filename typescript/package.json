@@ -1,6 +1,6 @@
 {
   "name": "@capsizellc/commons",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Selectively importable common utilities shared across Capsize projects.",
   "type": "module",
   "license": "MIT",
