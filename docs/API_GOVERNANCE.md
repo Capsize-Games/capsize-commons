@@ -24,9 +24,9 @@ rejected edge.
 
 | Artifact | Current version | Runtime floor | Release authority |
 | --- | --- | --- | --- |
-| `capsize-commons` Python | `0.1.3` candidate | Python `>=3.11` | `python/pyproject.toml`, PyPI package metadata |
-| `@capsizellc/commons` | `0.1.3` candidate | Node `>=22` | `typescript/package.json`, npm package metadata |
-| C++ library | `0.1.3` candidate | C++23, CMake `>=3.24` | `cpp/CMakeLists.txt` and tagged source release |
+| `capsize-commons` Python | `0.1.4` candidate | Python `>=3.11` | `python/pyproject.toml`, PyPI package metadata |
+| `@capsizellc/commons` | `0.1.4` candidate | Node `>=22` | `typescript/package.json`, npm package metadata |
+| C++ library | `0.1.4` candidate | C++23, CMake `>=3.24` | `cpp/CMakeLists.txt` and tagged source release |
 
 Consumers must depend on released versions, not a checkout or copied source.
 The Python package uses extras (`config`, `db`, `web`, `http`); TypeScript
@@ -56,6 +56,6 @@ The executable checklist is `just release-check`, implemented by
 authorities, then runs the boundary check. The full pre-publish commands are
 listed in [`RELEASE_CHECKLIST.md`](RELEASE_CHECKLIST.md).
 
-The Python artifact `0.1.2` is published and verified. The `0.1.3` candidate
+The Python artifact `0.1.2` is published and verified. The `0.1.4` candidate
 keeps all three release surfaces in lockstep and is published only by the
 tag-driven OIDC workflow described in `RELEASE_CHECKLIST.md`.

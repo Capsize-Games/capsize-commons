@@ -8,7 +8,7 @@ on:
       version:
         description: SemVer candidate used by a dry-run
         required: true
-        default: "0.1.3"
+        default: "0.1.4"
         type: string
       dry-run:
         description: Build and verify without publishing
@@ -128,4 +128,4 @@ jobs:
         with:
           node-version: "22"
       - name: Publish with npm provenance
-        run: npm publish release-dist/*.tgz --provenance --access public
+        run: npm publish ./release-dist/*.tgz --provenance --access public
