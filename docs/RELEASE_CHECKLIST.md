@@ -4,14 +4,14 @@ This checklist verifies a release candidate without publishing from a local
 shell. Run it from a clean checkout with the intended version arguments:
 
 ```bash
-just release-check version=0.1.3
+just release-check version=0.1.4
 ```
 
 The command checks package names, version authorities, and forbidden dependency
 edges. For the full pre-publish gate, run:
 
 ```bash
-python scripts/release_check.py --version 0.1.3 --full
+python scripts/release_check.py --version 0.1.4 --full
 ```
 
 The full gate must record:
@@ -37,3 +37,8 @@ The full gate must record:
 The release workflow is tag-only for publishing. A manual dispatch is a
 dry-run and never publishes. The package trust configuration must be verified
 before pushing the first release tag.
+
+The `v0.1.3` exercise built both artifacts but published neither: PyPI rejected
+the unregistered trusted publisher and npm exposed a tarball-path bug. The
+`0.1.4` candidate includes the path fix; the failed tag is retained as release
+evidence and must not be moved or reused.
