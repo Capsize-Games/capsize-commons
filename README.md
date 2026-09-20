@@ -93,6 +93,21 @@ There is deliberately **no global configuration state**. Each helper takes its
 inputs as arguments; environment access is confined to the opt-in `config`
 extras. See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
+## API governance
+
+Package boundaries, supported versions, compatibility requirements, forbidden
+dependency edges, and deprecation rules are recorded in
+[`docs/API_GOVERNANCE.md`](docs/API_GOVERNANCE.md). Before a release, run the
+metadata-only checklist with:
+
+```bash
+just release-check
+```
+
+That command validates package identities, version authorities, and the
+commons-only dependency boundary. It never publishes an artifact; trusted
+publishing and tag verification remain a separate release gate.
+
 ## Testing
 
 ```bash
