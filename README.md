@@ -54,7 +54,8 @@ from capsize_commons.web import make_api_key_dependency, install_health_routes
 
 configure_logging(json_mode=True)
 app = FastAPI()
-install_health_routes(app)
+# Keep an existing liveness response shape while adopting the shared routes.
+install_health_routes(app, health_body={"ok": True})
 app.dependency_overrides = {}
 ```
 
