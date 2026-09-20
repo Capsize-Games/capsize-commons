@@ -1,7 +1,8 @@
 # CI for capsize-commons (CAPSIZE_PROJECT_STANDARDS.md §10).
 #
-# Per-language stages call the reusable workflows owned by capsize-ci rather
-# than copying their bodies; the rules-sync job enforces §12 drift.
+# Per-language stages call the versioned reusable workflows owned by capsize-ci.
+# Pin the authority to an immutable commit; the rules-sync and manifest jobs
+# remain repository-local because they validate this repository's own contract.
 name: ci
 
 on:
@@ -14,22 +15,23 @@ permissions:
 
 jobs:
   python:
-    uses: Capsize-Games/capsize-ci/.github/workflows/python-ci.yml@main
+    uses: Capsize-Games/capsize-ci/.github/workflows/python-ci.yml@1a50d06c20022f9bbc44bad002add302e1dae646
     with:
       working-directory: python
-    secrets: inherit
+      lint-paths: . ../scripts
+      mypy-path: src
 
   typescript:
-    uses: Capsize-Games/capsize-ci/.github/workflows/node-ci.yml@main
+    uses: Capsize-Games/capsize-ci/.github/workflows/node-ci.yml@1a50d06c20022f9bbc44bad002add302e1dae646
     with:
       working-directory: typescript
-    secrets: inherit
+      node-version: "22"
+      pnpm-version: "12.4.2"
 
   cpp:
-    uses: Capsize-Games/capsize-ci/.github/workflows/cpp-ci.yml@main
+    uses: Capsize-Games/capsize-ci/.github/workflows/cpp-ci.yml@1a50d06c20022f9bbc44bad002add302e1dae646
     with:
       working-directory: cpp
-    secrets: inherit
 
   rules-sync:
     name: rules-sync
@@ -48,4 +50,5 @@ jobs:
         run: |
           python -m pip install --quiet check-jsonschema
           check-jsonschema --schemafile \
-            https://capsize.dev/schemas/capsize-1.json capsize.json
+            https://raw.githubusercontent.com/Capsize-Games/capsize-ci/1a50d06c20022f9bbc44bad002add302e1dae646/schema/capsize-1.json \
+            capsize.json
